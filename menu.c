@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lista.h"
+#include "curso.h"
 
 void espera_enter()
 {
@@ -10,18 +11,18 @@ void espera_enter()
     getchar();
 }
 
-void menu_opcao(Lista *alunos, int opcao)
+void menu_opcao(Lista *alunos, Arv *cursos, int opcao)
 {
     switch (opcao)
     {
     case 1:
-        /* code */
+        cursos = inserir_curso(cursos);
         break;
     case 2:
-        /* code */
+        cursos = remover_curso(cursos);
         break;
     case 3:
-        /* code */
+        imprimir_cursos(cursos);
         break;
     case 4:
         /* code */
@@ -30,26 +31,26 @@ void menu_opcao(Lista *alunos, int opcao)
         /* code */
         break;
     case 6:
-        /* code */
+        imprimir_alunos_curso(cursos);
         break;
     case 7:
-        /* code */
+        imprime_dados_aluno(alunos);
         break;
     default:
         break;
     }
 }
 
-void menu(Lista *alunos)
+void menu(Lista *alunos, Arv *cursos)
 {
     int opcao;
     do
     {
         printf("MENU:\n");
 
-        // printf("1. INSERIR NOVO CURSO.\n");
-        // printf("2. EXCLUIR CURSO.\n");
-        // printf("3. IMPRIMIR ARVORE DE CURSO.\n");
+        printf("1. INSERIR NOVO CURSO.\n");
+        printf("2. EXCLUIR CURSO.\n");
+        printf("3. IMPRIMIR ARVORE DE CURSO.\n");
         printf("4. INSERIR ALUNO EM UM CURSO.\n");
         printf("5. REMOVER ALUNO DE UM CURSO.\n");
         printf("6. IMPRIMIR LISTA DE ALUNOS MATRICULADO EM UM CURSO.\n");
@@ -63,7 +64,7 @@ void menu(Lista *alunos)
                 printf("POR FAVOR, DIGITE UM NUMERO VALIDO!!\n");
 
         } while (opcao < 1 || opcao > 8);
-        menu_opcao(alunos, opcao);
+        menu_opcao(alunos, cursos, opcao);
         esperar_enter();
     } while (opcao != 8);
 }
@@ -71,5 +72,7 @@ void menu(Lista *alunos)
 int main()
 {
     Lista *alunos = lista_cria_vazia();
-    menu(alunos);
+    Arv *cursos = arv_cria_vazia();
+
+    menu(alunos, cursos);
 }
