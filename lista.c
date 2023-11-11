@@ -171,20 +171,27 @@ void imprime_dados_aluno(Lista *aluno)
 {
     int matricula;
 
-    printf("Digite a matricula do aluno: ");
-    scanf("%d", &matricula);
-
-    Lista* aluno_existe = aluno_pertence(aluno,matricula);
-
-    if(aluno_existe->matricula == matricula)
+    if(aluno == NULL)
     {
-        printf("Nome: %s\n", aluno_existe->nome);
-        printf("Matricula: %d\n", aluno_existe->matricula);
-        printf("Ano de Ingresso: %d\n", aluno_existe->ano_ingresso);
+        printf("\nNao ha alunos matriculados.\n");
     }
     else
     {
-        printf("Aluno nao encontrado.\n");
+        printf("Digite a matricula do aluno: ");
+        scanf("%d", &matricula);
+
+        Lista* aluno_existe = aluno_pertence(aluno,matricula);
+
+        if(aluno_existe->matricula == matricula)
+        {
+            printf("Nome: %s\n", aluno_existe->nome);
+            printf("Matricula: %d\n", aluno_existe->matricula);
+            printf("Ano de Ingresso: %d\n", aluno_existe->ano_ingresso);
+        }
+        else
+        {
+            printf("Aluno nao encontrado.\n");
+        }
     }
 }
 
