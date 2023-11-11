@@ -141,10 +141,10 @@ Arv *inserir_curso(Arv *arv)
 {
     Curso *curso = (Curso *)malloc(sizeof(Curso));
     printf("Digite o nome do curso:\n");
-    scanf("%s", curso->nome);
+    scanf(" %[^\n]", curso->nome);
 
     printf("Digite o centro do grupo:\n");
-    scanf("%s", curso->centro);
+    scanf(" %[^\n]", curso->centro);
 
     printf("Digite o codigo do curso:\n");
     scanf("%d", &curso->codigo);
@@ -200,6 +200,6 @@ void imprimir_alunos_curso(Arv *arv)
     }
     else
     {
-        printf("Curso nao encontrado.\n");
+        printf("Esse curso nao existe.\n");
     }
 }
