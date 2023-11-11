@@ -2,6 +2,7 @@
 #define CURSO_H
 
 #include "lista.h"
+
 struct dados_curso{
     int codigo;
     char nome[100];
@@ -27,7 +28,7 @@ Arv *arv_remove_no(Arv *arv, Curso *dados);
 
 Arv *abb_retira(Arv *arv, int codigo);
 
-Curso *imprimir_info_curso(Curso *dados);
+void imprimir_info_curso(Curso *dados);
 
 void abb_imprime(Arv *arv);
 
@@ -40,5 +41,7 @@ Arv *curso_pertence_arv(Arv *arv, int codigo);
 Arv *inserir_curso(Arv *arv);
 
 Arv *remover_curso(Arv *arv);
+
+void imprimir_alunos_curso(Arv *arv);
 
 #endif

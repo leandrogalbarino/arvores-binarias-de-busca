@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "lista.h"
 #include "curso.h"
 
@@ -164,7 +165,7 @@ Lista *lista_remover_alunos(Lista *l)
 
 // 4. a impressão da lista de alunos matriculados em um determinado curso (informado pelo usuário);
 
-void imprime_dados_aluno(Lista* aluno)
+void imprime_dados_aluno(Lista *aluno)
 {
     if(aluno != NULL)
     {
@@ -178,22 +179,3 @@ void imprime_dados_aluno(Lista* aluno)
     }
 }
 
-void imprimir_alunos_curso(Arv *arv)
-{
-    int codigo_curso;
-
-    printf("Digite o codigo do curso que deseja: ");
-    scanf("%d", &codigo_curso);
-
-    Arv *curso_achou = curso_pertence_arv(arv,codigo_curso);
-
-    if(curso_achou != NULL)
-    {
-        printf("Alunos matriculados no curso %d:\n", curso_achou->curso->nome);
-        lista_imprime(curso_achou->curso->alunos);
-    }
-    else
-    {
-        printf("Curso nao encontrado.\n");
-    }
-}

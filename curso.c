@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "curso.h"
+#include "lista.h"
 
 // 1. a inserção e exclusão de nós na árvore de cursos;
 // 2. a impressão da árvore de cursos, ordenada pelo código do curso;
@@ -58,7 +59,7 @@ Arv *arv_remove_no(Arv *arv, Curso *dados)
         arv->curso = temp->curso;
         temp->curso = dados;
 
-        arv->esquerda = abb_retira(arv->esquerda, dados);
+        arv->esquerda = abb_retira(arv->esquerda, dados->codigo);
     }
 }
 
@@ -73,12 +74,12 @@ Arv *abb_retira(Arv *arv, int codigo)
         arv->direita = abb_retira(arv->direita, codigo);
     else
     {
-        arv = arv_remove_no(arv, codigo);
+        arv = arv_remove_no(arv, arv->curso);
     }
     return arv;
 }
 
-Curso *imprimir_info_curso(Curso *dados)
+void imprimir_info_curso(Curso *dados)
 {
     printf("Centro:%s\n", dados->centro);
     printf("Nome:%s\n", dados->nome);
@@ -90,7 +91,10 @@ Curso *imprimir_info_curso(Curso *dados)
 
 void abb_imprime(Arv *arv)
 {
-    if (!arv_vazia(arv))
+    if(arv == NULL){
+
+    }
+    else
     {
         abb_imprime(arv->direita);
         imprimir_info_curso(arv->curso);
@@ -176,4 +180,24 @@ Arv *remover_curso(Arv *arv)
     else
         printf("Curso nao encontrado!!\n");
     return arv;
+}
+
+void imprimir_alunos_curso(Arv *arv)
+{
+    int codigo_curso;
+
+    printf("Digite o codigo do curso que deseja: ");
+    scanf("%d", &codigo_curso);
+
+    Arv *curso_achou = curso_pertence_arv(arv,codigo_curso);
+
+    if(curso_achou != NULL)
+    {
+        printf("Alunos matriculados no curso %d:\n", curso_achou->curso->nome);
+        lista_imprime(curso_achou->curso->alunos);
+    }
+    else
+    {
+        printf("Curso nao encontrado.\n");
+    }
 }

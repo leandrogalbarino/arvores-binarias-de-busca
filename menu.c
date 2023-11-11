@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "lista.h"
 #include "curso.h"
 
@@ -65,7 +66,7 @@ void menu(Lista *alunos, Arv *cursos)
 
         } while (opcao < 1 || opcao > 8);
         menu_opcao(alunos, cursos, opcao);
-        esperar_enter();
+        espera_enter();
     } while (opcao != 8);
 }
 
