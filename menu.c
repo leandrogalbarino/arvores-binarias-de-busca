@@ -47,7 +47,7 @@ void menu(Lista *alunos, Arv *cursos)
     int opcao;
     do
     {
-        printf("MENU:\n");
+        printf("\tMENU:\n");
 
         printf("1. INSERIR NOVO CURSO.\n");
         printf("2. EXCLUIR CURSO.\n");
@@ -59,7 +59,7 @@ void menu(Lista *alunos, Arv *cursos)
         printf("8. SAIR.\n");
         do
         {
-            printf("POR FAVOR, DIGITE O NUMERO DO QUE DESEJA REALIZAR:");
+            printf("POR FAVOR, DIGITE O NUMERO DO QUE DESEJA REALIZAR: ");
             scanf("%d", &opcao);
             if (opcao < 1 || opcao > 8)
                 printf("POR FAVOR, DIGITE UM NUMERO VALIDO!!\n");

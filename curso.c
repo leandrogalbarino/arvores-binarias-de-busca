@@ -54,7 +54,9 @@ Arv *arv_remove_no(Arv *arv, Curso *dados)
     {
         Arv *temp = arv->esquerda;
         while (temp->direita != NULL)
+        {
             temp = temp->direita;
+        }
 
         arv->curso = temp->curso;
         temp->curso = dados;
@@ -155,7 +157,7 @@ Arv *inserir_curso(Arv *arv)
     else
     {
         arv = abb_insere(arv, curso);
-        printf("Curso inserido com sucesso");
+        printf("Curso inserido com sucesso.\n");
     }
     return arv;
 }

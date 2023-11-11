@@ -11,7 +11,6 @@ struct dados_curso{
 
 }; typedef struct dados_curso Curso;
 
-
 struct arv{
     Curso *curso;
     struct arv* esquerda;

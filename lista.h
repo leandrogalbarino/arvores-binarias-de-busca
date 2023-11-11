@@ -3,7 +3,6 @@
 
 #include "curso.h"
 
-
 struct lista
 {
     char nome[50];
@@ -26,6 +25,5 @@ Lista *lista_remover(Lista *l, int matricula);
 void lista_imprime(Lista *l);
 
 void imprime_dados_aluno(Lista *aluno);
-
 
 #endif

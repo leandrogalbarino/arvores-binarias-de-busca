@@ -57,6 +57,9 @@ Lista *lista_inserir(Lista *l, char *nome, int matricula, int ano_ingresso)
 
 Lista *lista_remover(Lista *l, int matricula)
 {
+    Lista *p;
+    Lista *ant = NULL;
+
     if (l == NULL)
     {
         printf("Nao existe alunos para serem removidos!\n");
@@ -70,9 +73,6 @@ Lista *lista_remover(Lista *l, int matricula)
         free(temp);
         return l;
     }
-
-    Lista *p;
-    Lista *ant = NULL;
 
     for (p = l; p != NULL; p = p->prox)
     {
@@ -89,12 +89,14 @@ Lista *lista_remover(Lista *l, int matricula)
 
 void lista_imprime(Lista *l)
 {
+    Lista *p;
+
     if (l == NULL)
     {
         printf("Nao existem alunos matriculados no curso!\n");
         return;
     }
-    Lista *p;
+    
     for (p = l; p != NULL; p = p->prox)
     {
         printf("Nome:%s\n", p->nome);
@@ -122,13 +124,13 @@ Lista *inserir_alunos(Lista *l)
     int ano_ingresso;
     char nome[50];
 
-    printf("Digite o nome do aluno:");
+    printf("Digite o nome do aluno: ");
     scanf("%s", nome);
 
-    printf("Digite o numero da matricula do aluno:");
+    printf("Digite o numero da matricula do aluno: ");
     scanf("%d", &matricula);
 
-    printf("Digite o ano de ingresso do aluno:");
+    printf("Digite o ano de ingresso do aluno: ");
     scanf("%d", &ano_ingresso);
 
     if (aluno_pertence(l, matricula) != NULL)
@@ -137,7 +139,7 @@ Lista *inserir_alunos(Lista *l)
     else
     {
         l = lista_inserir(l, nome, matricula, ano_ingresso);
-        printf("Aluno inserido com sucesso");
+        printf("Aluno inserido com sucesso.");
     }
     return l;
 }
@@ -146,12 +148,12 @@ Lista *inserir_alunos(Lista *l)
 Lista *lista_remover_alunos(Lista *l)
 {
     int matricula;
-    printf("Digite o numero da matricula do aluno que deseja remover do curso:");
+    printf("Digite o numero da matricula do aluno que deseja remover do curso: ");
     scanf("%d", &matricula);
     if (aluno_pertence(l, matricula) != NULL)
     {
         l = lista_remover(l, matricula);
-        printf("Aluno com numero da matricula:%d, removido com sucesso!!\n", matricula);
+        printf("Aluno com numero da matricula: %d, removido com sucesso!!\n", matricula);
     }
     else
     {
