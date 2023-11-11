@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "lista.h"
+#include "curso.h"
 
 Lista *lista_cria_vazia()
 {
@@ -162,3 +163,37 @@ Lista *lista_remover_alunos(Lista *l)
 // 3. a inserção e exclusão de alunos matriculados em um determinado curso (informado pelo usuário);
 
 // 4. a impressão da lista de alunos matriculados em um determinado curso (informado pelo usuário);
+
+void imprime_dados_aluno(Lista* aluno)
+{
+    if(aluno != NULL)
+    {
+        printf("Nome: %s\n", aluno->nome);
+        printf("Matricula: %d\n", aluno->matricula);
+        printf("Ano de Ingresso: %d\n", aluno->ano_ingresso);
+    }
+    else
+    {
+        printf("Aluno nao encontrado.\n");
+    }
+}
+
+void imprimir_alunos_curso(Arv *arv)
+{
+    int codigo_curso;
+
+    printf("Digite o codigo do curso que deseja: ");
+    scanf("%d", &codigo_curso);
+
+    Arv *curso_achou = curso_pertence_arv(arv,codigo_curso);
+
+    if(curso_achou != NULL)
+    {
+        printf("Alunos matriculados no curso %d:\n", curso_achou->curso->nome);
+        lista_imprime(curso_achou->curso->alunos);
+    }
+    else
+    {
+        printf("Curso nao encontrado.\n");
+    }
+}

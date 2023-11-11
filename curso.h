@@ -17,5 +17,28 @@ struct arv{
     struct arv* direita;
 }; typedef struct arv Arv;
 
+Arv *arv_cria_vazia();
+
+Arv *arv_cria_no(Curso *dados);
+
+Arv *abb_insere(Arv *arv, Curso *dados);
+
+Arv *arv_remove_no(Arv *arv, Curso *dados);
+
+Arv *abb_retira(Arv *arv, int codigo);
+
+Curso *imprimir_info_curso(Curso *dados);
+
+void abb_imprime(Arv *arv);
+
+void imprimir_cursos(Arv *arv);
+
+Arv *arv_curso();
+
+Arv *curso_pertence_arv(Arv *arv, int codigo);
+
+Arv *inserir_curso(Arv *arv);
+
+Arv *remover_curso(Arv *arv);
 
 #endif
