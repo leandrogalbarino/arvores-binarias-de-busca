@@ -7,7 +7,7 @@ struct dados_curso{
     int codigo;
     char nome[100];
     char centro[100];
-    Lista* alunos;
+    struct lista *alunos;
 
 }; typedef struct dados_curso Curso;
 

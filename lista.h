@@ -3,6 +3,7 @@
 
 #include "curso.h"
 
+
 struct lista
 {
     char nome[50];
