@@ -45,7 +45,9 @@ Lista *lista_inserir(Lista *l, char *nome, int matricula, int ano_ingresso)
 {
     Lista *novo = lista_cria_no(nome, matricula, ano_ingresso);
     if (l == NULL)
+    {
         return novo;
+    }
 
     l = lista_ajusta_ponteiros(l, novo);
     return l;
@@ -60,9 +62,10 @@ Lista *lista_remover(Lista *l, int matricula)
     }
 
     if (l->matricula == matricula)
-    {
+    {   
+        Lista *temp = l;
         l = l->prox;
-        free(l);
+        free(temp);
         return l;
     }
 
@@ -77,6 +80,7 @@ Lista *lista_remover(Lista *l, int matricula)
             free(p);
             break;
         }
+        ant = p;
     }
     return l;
 }
@@ -125,7 +129,7 @@ Lista *inserir_alunos(Lista *l)
     printf("Digite o ano de ingresso do aluno:");
     scanf("%d", &ano_ingresso);
 
-    if (aluno_pertence_ao_curso(l, matricula) != NULL)
+    if (aluno_pertence(l, matricula) != NULL)
         printf("Aluno ja pertence ao Curso!!\n Nao foi possivel inserido novamente!!\n");
 
     else
@@ -148,7 +152,10 @@ Lista *lista_remover_alunos(Lista *l)
         printf("Aluno com numero da matricula:%d, removido com sucesso!!\n", matricula);
     }
     else
+    {
         printf("Aluno nao encontrado!\n");
+    }
+        
     return l;
 }
 
