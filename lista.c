@@ -169,11 +169,18 @@ Lista *lista_remover_alunos(Lista *l)
 
 void imprime_dados_aluno(Lista *aluno)
 {
-    if(aluno != NULL)
+    int matricula;
+
+    printf("Digite a matricula do aluno: ");
+    scanf("%d", &matricula);
+
+    Lista* aluno_existe = aluno_pertence(aluno,matricula);
+
+    if(aluno_existe->matricula == matricula)
     {
-        printf("Nome: %s\n", aluno->nome);
-        printf("Matricula: %d\n", aluno->matricula);
-        printf("Ano de Ingresso: %d\n", aluno->ano_ingresso);
+        printf("Nome: %s\n", aluno_existe->nome);
+        printf("Matricula: %d\n", aluno_existe->matricula);
+        printf("Ano de Ingresso: %d\n", aluno_existe->ano_ingresso);
     }
     else
     {
