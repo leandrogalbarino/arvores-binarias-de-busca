@@ -185,7 +185,7 @@ void imprimir_alunos_curso(Arv *arv)
 
     if(curso_achou != NULL)
     {
-        printf("Alunos matriculados no curso %d:\n", curso_achou->curso->nome);
+        printf("Alunos matriculados no curso %s:\n", curso_achou->curso->nome);
         lista_imprime(curso_achou->curso->alunos);
     }
     else
