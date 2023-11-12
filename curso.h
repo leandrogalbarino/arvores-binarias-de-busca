@@ -41,4 +41,8 @@ Arv *remover_curso(Arv *arv);
 
 void imprimir_alunos_curso(Arv *arv);
 
+Arv *inserir_aluno_curso(Arv *arv);
+
+Arv *remover_aluno_curso(Arv *arv);
+
 #endif

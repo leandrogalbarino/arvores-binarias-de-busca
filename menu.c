@@ -26,10 +26,10 @@ void menu_opcao(Lista **alunos, Arv **cursos, int opcao)
         imprimir_cursos(*cursos);
         break;
     case 4:
-        /* code */
+        *cursos = inserir_aluno_curso(*cursos); 
         break;
     case 5:
-        /* code */
+        *cursos = remover_aluno_curso(*cursos);
         break;
     case 6:
         imprimir_alunos_curso(*cursos);
@@ -54,6 +54,7 @@ void menu(Lista *alunos, Arv *cursos)
         printf("3. IMPRIMIR ARVORE DE CURSO.\n");
         printf("4. INSERIR ALUNO EM UM CURSO.\n");
         printf("5. REMOVER ALUNO DE UM CURSO.\n");
+
         printf("6. IMPRIMIR LISTA DE ALUNOS MATRICULADO EM UM CURSO.\n");
         printf("7. IMPRIMIR DADOS DE UM ALUNO.\n");
         printf("8. SAIR.\n");

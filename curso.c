@@ -193,3 +193,47 @@ void imprimir_alunos_curso(Arv *arv)
         printf("Esse curso nao existe.\n");
     }
 }
+
+Arv *inserir_aluno_curso(Arv *arv)
+{
+    int codigo;
+    if (arv == NULL)
+    {
+        printf("Nao existem cursos, nao foi possivel inserir aluno!!\n");
+        return arv;
+    }
+    printf("Digite o codigo do curso que deseja inserir o aluno:");
+    scanf("%d", &codigo);
+
+    Arv *no_curso = curso_pertence_arv(arv, codigo);
+    if (no_curso != NULL)
+    {
+        no_curso->curso->alunos = inserir_alunos(arv->curso->alunos);
+        printf("Aluno inserido com sucesso!!\n");
+    }
+    else
+        printf("Curso nao encontrado!!\n");
+    return arv;
+}
+
+Arv *remover_aluno_curso(Arv *arv)
+{
+    int codigo;
+    if (arv == NULL)
+    {
+        printf("Nao existem cursos, nao foi possivel remover alunos!!\n");
+        return arv;
+    }
+    printf("Digite o codigo do curso que deseja remover o aluno:");
+    scanf("%d", &codigo);
+
+    Arv *no_curso = curso_pertence_arv(arv, codigo);
+    if (no_curso != NULL)
+    {
+        no_curso->curso->alunos = remover_alunos(arv->curso->alunos);
+        printf("Aluno removido com sucesso!!\n");
+    }
+    else
+        printf("Curso nao encontrado!!\n");
+    return arv;
+}
