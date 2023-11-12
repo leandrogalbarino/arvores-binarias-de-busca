@@ -12,18 +12,18 @@ void espera_enter()
     getchar();
 }
 
-void menu_opcao(Lista *alunos, Arv *cursos, int opcao)
+void menu_opcao(Lista **alunos, Arv **cursos, int opcao)
 {
     switch (opcao)
     {
     case 1:
-        cursos = inserir_curso(cursos);
+        *cursos = inserir_curso(*cursos);
         break;
     case 2:
-        cursos = remover_curso(cursos);
+        *cursos = remover_curso(*cursos);
         break;
     case 3:
-        imprimir_cursos(cursos);
+        imprimir_cursos(*cursos);
         break;
     case 4:
         /* code */
@@ -32,10 +32,10 @@ void menu_opcao(Lista *alunos, Arv *cursos, int opcao)
         /* code */
         break;
     case 6:
-        imprimir_alunos_curso(cursos);
+        imprimir_alunos_curso(*cursos);
         break;
     case 7:
-        imprime_dados_aluno(alunos);
+        imprime_dados_aluno(*alunos);
         break;
     default:
         break;
@@ -65,7 +65,7 @@ void menu(Lista *alunos, Arv *cursos)
                 printf("POR FAVOR, DIGITE UM NUMERO VALIDO!!\n");
 
         } while (opcao < 1 || opcao > 8);
-        menu_opcao(alunos, cursos, opcao);
+        menu_opcao(&alunos, &cursos, opcao);
         espera_enter();
     } while (opcao != 8);
 }

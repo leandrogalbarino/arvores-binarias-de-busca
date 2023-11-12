@@ -83,9 +83,9 @@ Arv *abb_retira(Arv *arv, int codigo)
 
 void imprimir_info_curso(Curso *dados)
 {
-    printf("Centro:%s\n", dados->centro);
-    printf("Nome:%s\n", dados->nome);
-    printf("Codigo:%d\n", dados->codigo);
+    printf("\nCentro: %s\n", dados->centro);
+    printf("Nome: %s\n", dados->nome);
+    printf("Codigo: %d\n", dados->codigo);
 
     printf("Alunos:\n");
     lista_imprime(dados->alunos);
@@ -93,10 +93,7 @@ void imprimir_info_curso(Curso *dados)
 
 void abb_imprime(Arv *arv)
 {
-    if(arv == NULL){
-
-    }
-    else
+    if(arv != NULL)
     {
         abb_imprime(arv->direita);
         imprimir_info_curso(arv->curso);
@@ -114,13 +111,6 @@ void imprimir_cursos(Arv *arv)
         printf("CURSOS:");
         abb_imprime(arv);
     }
-}
-
-Arv *arv_curso()
-{
-    int codigo;
-    printf("Digite o codigo do curso:");
-    scanf("%d", &codigo);
 }
 
 Arv *curso_pertence_arv(Arv *arv, int codigo)

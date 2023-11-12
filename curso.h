@@ -33,8 +33,6 @@ void abb_imprime(Arv *arv);
 
 void imprimir_cursos(Arv *arv);
 
-Arv *arv_curso();
-
 Arv *curso_pertence_arv(Arv *arv, int codigo);
 
 Arv *inserir_curso(Arv *arv);
