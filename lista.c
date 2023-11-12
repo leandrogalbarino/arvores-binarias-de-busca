@@ -173,7 +173,7 @@ void imprime_dados_aluno(Lista *aluno)
 
     if(aluno == NULL)
     {
-        printf("\nNao ha alunos matriculados.\n");
+        printf("\nNao ha alunos matriculados em nenhum curso.\n");
     }
     else
     {
