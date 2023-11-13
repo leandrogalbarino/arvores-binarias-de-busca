@@ -1,8 +1,6 @@
 #ifndef CURSO_H
 #define CURSO_H
 
-
-
 struct dados_curso{
     int codigo;
     char nome[100];
@@ -45,9 +43,10 @@ Arv *inserir_aluno_curso(Arv *arv);
 
 Arv *remover_aluno_curso(Arv *arv);
 
-void dados_alunos_cursos(Arv *arv);
+int dados_alunos_cursos(Arv *arv);
 
 void vinculo_aluno_e_curso(Arv *arv);
 
+int aluno_pertence_a_algum_curso(Arv *arv, int matricula);
 
 #endif

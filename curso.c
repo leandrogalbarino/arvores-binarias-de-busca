@@ -1,11 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "curso.h"
-
 #include "lista.h"
 
-// 1. a inserção e exclusão de nós na árvore de cursos;
-// 2. a impressão da árvore de cursos, ordenada pelo código do curso;
 Arv *arv_cria_vazia()
 {
     return NULL;
@@ -37,10 +34,12 @@ Arv *arv_remove_no(Arv *arv, Curso *dados)
 {
     if (arv->esquerda == NULL && arv->direita == NULL)
     {
+        if (arv->curso->alunos != NULL)
+            liberar_lista(arv->curso->alunos);
+        free(arv->curso);
         free(arv);
         return NULL;
     }
-
     else if ((arv->esquerda != NULL && arv->direita == NULL) || (arv->direita != NULL && arv->esquerda == NULL))
     {
         Arv *temp = arv;
@@ -48,22 +47,24 @@ Arv *arv_remove_no(Arv *arv, Curso *dados)
             arv = arv->esquerda;
         else
             arv = arv->direita;
+
+        if (temp->curso->alunos != NULL)
+            liberar_lista(arv->curso->alunos);
+        free(temp->curso);
         free(temp);
     }
-
     else
     {
         Arv *temp = arv->esquerda;
         while (temp->direita != NULL)
-        {
             temp = temp->direita;
-        }
 
         arv->curso = temp->curso;
         temp->curso = dados;
 
         arv->esquerda = abb_retira(arv->esquerda, dados->codigo);
     }
+    return arv;
 }
 
 Arv *abb_retira(Arv *arv, int codigo)
@@ -76,40 +77,34 @@ Arv *abb_retira(Arv *arv, int codigo)
     else if (codigo > arv->curso->codigo)
         arv->direita = abb_retira(arv->direita, codigo);
     else
-    {
         arv = arv_remove_no(arv, arv->curso);
-    }
     return arv;
 }
 
 void imprimir_info_curso(Curso *dados)
 {
-    printf("\nCentro: %s\n", dados->centro);
-    printf("Nome: %s\n", dados->nome);
-    printf("Codigo: %d\n", dados->codigo);
-
-    printf("Alunos:\n");
-    lista_imprime(dados->alunos);
+    printf("Nome:%s\n", dados->nome);
+    printf("Centro:%s\n", dados->centro);
+    printf("Codigo:%d\n\n", dados->codigo);
 }
 
 void abb_imprime(Arv *arv)
 {
     if (arv != NULL)
     {
-        abb_imprime(arv->direita);
-        imprimir_info_curso(arv->curso);
         abb_imprime(arv->esquerda);
+        imprimir_info_curso(arv->curso);
+        abb_imprime(arv->direita);
     }
 }
 
-// printf("3. IMPRIMIR ARVORE DE CURSO.\n");
 void imprimir_cursos(Arv *arv)
 {
     if (arv == NULL)
         printf("Nao existe nenhum curso cadastrado!!\n");
     else
     {
-        printf("CURSOS:");
+        printf("\tCURSOS\n");
         abb_imprime(arv);
     }
 }
@@ -127,7 +122,6 @@ Arv *curso_pertence_arv(Arv *arv, int codigo)
         return arv;
 }
 
-// printf("1. INSERIR NOVO CURSO.\n");
 Arv *inserir_curso(Arv *arv)
 {
     Curso *curso = (Curso *)malloc(sizeof(Curso));
@@ -153,7 +147,6 @@ Arv *inserir_curso(Arv *arv)
     return arv;
 }
 
-// printf("2. EXCLUIR CURSO.\n");
 Arv *remover_curso(Arv *arv)
 {
     int codigo;
@@ -165,6 +158,7 @@ Arv *remover_curso(Arv *arv)
     printf("Digite o codigo do curso:");
     scanf("%d", &codigo);
     Arv *no_curso = curso_pertence_arv(arv, codigo);
+
     if (no_curso != NULL)
     {
         arv = abb_retira(arv, codigo);
@@ -178,7 +172,7 @@ Arv *remover_curso(Arv *arv)
 void imprimir_alunos_curso(Arv *arv)
 {
     int codigo_curso;
-    if(arv == NULL)
+    if (arv == NULL)
     {
         printf("Nao existe nenhum curso cadastrado!!\n");
         return;
@@ -195,13 +189,26 @@ void imprimir_alunos_curso(Arv *arv)
     }
     else
     {
-        printf("Esse curso nao existe.\n");
+        printf("Curso nao encontrado.\n");
     }
+}
+
+int aluno_pertence_a_algum_curso(Arv *arv, int matricula)
+{
+    int pertence = 0;
+    if (arv == NULL)
+        return 0;
+    if (arv->curso->alunos != NULL)
+        if (aluno_pertence(arv->curso->alunos, matricula) != NULL)
+            pertence = 1;
+
+    return pertence || aluno_pertence_a_algum_curso(arv->esquerda, matricula) || aluno_pertence_a_algum_curso(arv->direita, matricula);
 }
 
 Arv *inserir_aluno_curso(Arv *arv)
 {
     int codigo;
+    int matricula;
     if (arv == NULL)
     {
         printf("Nao existem cursos, nao foi possivel inserir aluno!!\n");
@@ -213,8 +220,12 @@ Arv *inserir_aluno_curso(Arv *arv)
     Arv *no_curso = curso_pertence_arv(arv, codigo);
     if (no_curso != NULL)
     {
-        no_curso->curso->alunos = inserir_alunos(arv->curso->alunos);
-        printf("Aluno inserido com sucesso!!\n");
+        printf("Digite o numero da matricula do aluno: ");
+        scanf("%d", &matricula);
+        if (!aluno_pertence_a_algum_curso(arv, matricula))
+            no_curso->curso->alunos = inserir_alunos(no_curso->curso->alunos, matricula);
+        else
+            printf("Aluno ja matriculado em um curso!!\n");
     }
     else
         printf("Curso nao encontrado!!\n");
@@ -235,27 +246,30 @@ Arv *remover_aluno_curso(Arv *arv)
     Arv *no_curso = curso_pertence_arv(arv, codigo);
     if (no_curso != NULL)
     {
-        no_curso->curso->alunos = remover_alunos(arv->curso->alunos);
-        printf("Aluno removido com sucesso!!\n");
+        no_curso->curso->alunos = remover_alunos(no_curso->curso->alunos);
     }
     else
         printf("Curso nao encontrado!!\n");
     return arv;
 }
 
-void dados_alunos_cursos(Arv *arv)
+int dados_alunos_cursos(Arv *arv)
 {
+    int retornar = 0;
     if (arv != NULL)
     {
-        dados_alunos_cursos(arv->esquerda);
+        retornar += dados_alunos_cursos(arv->esquerda);
 
         char *nome_curso = arv->curso->nome;
         char *centro_curso = arv->curso->centro;
-
-        imprimir(arv->curso->alunos, nome_curso, centro_curso);
-
-        dados_alunos_cursos(arv->direita);
+        if (arv->curso->alunos != NULL)
+        {
+            imprimir(arv->curso->alunos, nome_curso, centro_curso);
+            retornar++;
+        }
+        retornar += dados_alunos_cursos(arv->direita);
     }
+    return retornar;
 }
 
 void vinculo_aluno_e_curso(Arv *arv)
@@ -266,7 +280,8 @@ void vinculo_aluno_e_curso(Arv *arv)
     }
     else
     {
-        printf("Dados de Vínculos entre Alunos e Cursos:\n\n");
-        dados_alunos_cursos(arv);
+        printf("Dados de Vinculos entre Alunos e Cursos:\n\n");
+        if (!dados_alunos_cursos(arv))
+            printf("Nao existe nenhum vinculo entre Aluno e Curso!!\n");
     }
 }

@@ -39,6 +39,9 @@ Lista *lista_ajusta_ponteiros(Lista *l, Lista *novo)
         }
         ant = p;
     }
+
+    if (p == NULL)
+        ant->prox = novo;
     return l;
 }
 
@@ -67,7 +70,7 @@ Lista *lista_remover(Lista *l, int matricula)
     }
 
     if (l->matricula == matricula)
-    {   
+    {
         Lista *temp = l;
         l = l->prox;
         free(temp);
@@ -93,10 +96,10 @@ void lista_imprime(Lista *l)
 
     if (l == NULL)
     {
-        printf("Nao existem alunos matriculados no curso!\n");
+        printf("Nao existem alunos matriculados no curso!\n\n");
         return;
     }
-    
+
     for (p = l; p != NULL; p = p->prox)
     {
         printf("Nome:%s\n", p->nome);
@@ -118,36 +121,36 @@ Lista *aluno_pertence(Lista *l, int matricula)
     return p;
 }
 
-Lista *inserir_alunos(Lista *l)
+Lista *inserir_alunos(Lista *l, int matricula)
 {
-    int matricula;
     int ano_ingresso;
     char nome[50];
 
     printf("Digite o nome do aluno: ");
-    scanf("%s", nome);
-
-    printf("Digite o numero da matricula do aluno: ");
-    scanf("%d", &matricula);
+    scanf(" %[^\n]", nome);
 
     printf("Digite o ano de ingresso do aluno: ");
     scanf("%d", &ano_ingresso);
 
     if (aluno_pertence(l, matricula) != NULL)
-        printf("Aluno ja pertence ao Curso!!\n Nao foi possivel inserido novamente!!\n");
+        printf("Aluno ja pertence ao Curso!! Nao foi possivel inserido novamente!!\n");
 
     else
     {
         l = lista_inserir(l, nome, matricula, ano_ingresso);
-        printf("Aluno inserido com sucesso.");
+        printf("Aluno inserido com sucesso.\n");
     }
     return l;
 }
 
-
 Lista *remover_alunos(Lista *l)
 {
     int matricula;
+    if (l == NULL)
+    {
+        printf("Nao existem alunos matriculados no curso!!\n");
+        return l;
+    }
     printf("Digite o numero da matricula do aluno que deseja remover do curso: ");
     scanf("%d", &matricula);
     if (aluno_pertence(l, matricula) != NULL)
@@ -156,21 +159,31 @@ Lista *remover_alunos(Lista *l)
         printf("Aluno com numero da matricula: %d, removido com sucesso!!\n", matricula);
     }
     else
-    {
         printf("Aluno nao encontrado!\n");
-    }
-        
+
     return l;
 }
 
-void imprimir(Lista *alunos, char *nome_curso, char *centro_curso){
+void imprimir(Lista *alunos, char *nome_curso, char *centro_curso)
+{
     Lista *p;
-
-    for (p = alunos; p != NULL; p = p->prox) {
-        printf("Número de Matrícula: %d\n", p->matricula);
-        printf("Nome do Aluno: %s\n", p->nome);
-        printf("Nome do Curso: %s\n", nome_curso);
-        printf("Centro do Curso: %s\n\n", centro_curso);
+    for (p = alunos; p != NULL; p = p->prox)
+    {
+        printf("Numero de Matricula:%d\n", p->matricula);
+        printf("Nome do Aluno:%s\n", p->nome);
+        printf("Nome do Curso:%s\n", nome_curso);
+        printf("Centro do Curso:%s\n\n", centro_curso);
     }
 }
 
+void liberar_lista(Lista *l)
+{
+    Lista *p = l;
+    Lista *prox;
+    while (p != NULL)
+    {
+        prox = p->prox;
+        free(p);
+        p = p->prox;
+    }
+}

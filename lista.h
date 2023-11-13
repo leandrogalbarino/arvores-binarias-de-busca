@@ -24,8 +24,12 @@ void lista_imprime(Lista *l);
 
 void imprimir(Lista *alunos, char *nome_curso, char *centro_curso);
 
-Lista *inserir_alunos(Lista *l);
+Lista *inserir_alunos(Lista *l, int matricula);
 
 Lista *remover_alunos(Lista *l);
+
+void liberar_lista(Lista* l);
+
+Lista *aluno_pertence(Lista *l, int matricula);
 
 #endif
