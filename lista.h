@@ -1,8 +1,6 @@
 #ifndef LISTA_H
 #define LISTA_H
 
-#include "curso.h"
-
 struct lista
 {
     char nome[50];
@@ -24,6 +22,10 @@ Lista *lista_remover(Lista *l, int matricula);
 
 void lista_imprime(Lista *l);
 
-void imprime_dados_aluno(Lista *aluno);
+void imprimir(Lista *alunos, char *nome_curso, char *centro_curso);
+
+Lista *inserir_alunos(Lista *l);
+
+Lista *remover_alunos(Lista *l);
 
 #endif

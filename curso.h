@@ -1,7 +1,7 @@
 #ifndef CURSO_H
 #define CURSO_H
 
-#include "lista.h"
+
 
 struct dados_curso{
     int codigo;
@@ -13,8 +13,8 @@ struct dados_curso{
 
 struct arv{
     Curso *curso;
-    struct arv* esquerda;
-    struct arv* direita;
+    struct arv *esquerda;
+    struct arv *direita;
 }; typedef struct arv Arv;
 
 Arv *arv_cria_vazia();
@@ -44,5 +44,10 @@ void imprimir_alunos_curso(Arv *arv);
 Arv *inserir_aluno_curso(Arv *arv);
 
 Arv *remover_aluno_curso(Arv *arv);
+
+void dados_alunos_cursos(Arv *arv);
+
+void vinculo_aluno_e_curso(Arv *arv);
+
 
 #endif

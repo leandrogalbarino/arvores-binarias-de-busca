@@ -145,7 +145,7 @@ Lista *inserir_alunos(Lista *l)
 }
 
 
-Lista *lista_remover_alunos(Lista *l)
+Lista *remover_alunos(Lista *l)
 {
     int matricula;
     printf("Digite o numero da matricula do aluno que deseja remover do curso: ");
@@ -163,35 +163,14 @@ Lista *lista_remover_alunos(Lista *l)
     return l;
 }
 
-// 3. a inserção e exclusão de alunos matriculados em um determinado curso (informado pelo usuário);
+void imprimir(Lista *alunos, char *nome_curso, char *centro_curso){
+    Lista *p;
 
-// 4. a impressão da lista de alunos matriculados em um determinado curso (informado pelo usuário);
-
-void imprime_dados_aluno(Lista *aluno)
-{
-    int matricula;
-
-    if(aluno == NULL)
-    {
-        printf("\nNao ha alunos matriculados em nenhum curso.\n");
-    }
-    else
-    {
-        printf("Digite a matricula do aluno: ");
-        scanf("%d", &matricula);
-
-        Lista* aluno_existe = aluno_pertence(aluno,matricula);
-
-        if(aluno_existe->matricula == matricula)
-        {
-            printf("Nome: %s\n", aluno_existe->nome);
-            printf("Matricula: %d\n", aluno_existe->matricula);
-            printf("Ano de Ingresso: %d\n", aluno_existe->ano_ingresso);
-        }
-        else
-        {
-            printf("Aluno nao encontrado.\n");
-        }
+    for (p = alunos; p != NULL; p = p->prox) {
+        printf("Número de Matrícula: %d\n", p->matricula);
+        printf("Nome do Aluno: %s\n", p->nome);
+        printf("Nome do Curso: %s\n", nome_curso);
+        printf("Centro do Curso: %s\n\n", centro_curso);
     }
 }
 

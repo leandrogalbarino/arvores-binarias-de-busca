@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "curso.h"
+
 #include "lista.h"
 
 // 1. a inserção e exclusão de nós na árvore de cursos;
@@ -93,7 +94,7 @@ void imprimir_info_curso(Curso *dados)
 
 void abb_imprime(Arv *arv)
 {
-    if(arv != NULL)
+    if (arv != NULL)
     {
         abb_imprime(arv->direita);
         imprimir_info_curso(arv->curso);
@@ -177,13 +178,17 @@ Arv *remover_curso(Arv *arv)
 void imprimir_alunos_curso(Arv *arv)
 {
     int codigo_curso;
-
+    if(arv == NULL)
+    {
+        printf("Nao existe nenhum curso cadastrado!!\n");
+        return;
+    }
     printf("Digite o codigo do curso que deseja: ");
     scanf("%d", &codigo_curso);
 
-    Arv *curso_achou = curso_pertence_arv(arv,codigo_curso);
+    Arv *curso_achou = curso_pertence_arv(arv, codigo_curso);
 
-    if(curso_achou != NULL)
+    if (curso_achou != NULL)
     {
         printf("Alunos matriculados no curso %s:\n", curso_achou->curso->nome);
         lista_imprime(curso_achou->curso->alunos);
@@ -236,4 +241,32 @@ Arv *remover_aluno_curso(Arv *arv)
     else
         printf("Curso nao encontrado!!\n");
     return arv;
+}
+
+void dados_alunos_cursos(Arv *arv)
+{
+    if (arv != NULL)
+    {
+        dados_alunos_cursos(arv->esquerda);
+
+        char *nome_curso = arv->curso->nome;
+        char *centro_curso = arv->curso->centro;
+
+        imprimir(arv->curso->alunos, nome_curso, centro_curso);
+
+        dados_alunos_cursos(arv->direita);
+    }
+}
+
+void vinculo_aluno_e_curso(Arv *arv)
+{
+    if (arv == NULL)
+    {
+        printf("Nao ha nenhum vinculo entre alunos e cursos.\n");
+    }
+    else
+    {
+        printf("Dados de Vínculos entre Alunos e Cursos:\n\n");
+        dados_alunos_cursos(arv);
+    }
 }

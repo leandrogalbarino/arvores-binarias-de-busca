@@ -12,7 +12,7 @@ void espera_enter()
     getchar();
 }
 
-void menu_opcao(Lista **alunos, Arv **cursos, int opcao)
+void menu_opcao(Arv **cursos, int opcao)
 {
     switch (opcao)
     {
@@ -35,14 +35,14 @@ void menu_opcao(Lista **alunos, Arv **cursos, int opcao)
         imprimir_alunos_curso(*cursos);
         break;
     case 7:
-        imprime_dados_aluno(*alunos);
+        vinculo_aluno_e_curso(*cursos);
         break;
     default:
         break;
     }
 }
 
-void menu(Lista *alunos, Arv *cursos)
+void menu(Arv *cursos)
 {
     int opcao;
     do
@@ -56,7 +56,7 @@ void menu(Lista *alunos, Arv *cursos)
         printf("5. REMOVER ALUNO DE UM CURSO.\n");
 
         printf("6. IMPRIMIR LISTA DE ALUNOS MATRICULADO EM UM CURSO.\n");
-        printf("7. IMPRIMIR DADOS DE UM ALUNO.\n");
+        printf("7. IMPRIMIR DADOS DOS ALUNOS DE TODOS OS CURSOS.\n");
         printf("8. SAIR.\n");
         do
         {
@@ -66,15 +66,14 @@ void menu(Lista *alunos, Arv *cursos)
                 printf("POR FAVOR, DIGITE UM NUMERO VALIDO!!\n");
 
         } while (opcao < 1 || opcao > 8);
-        menu_opcao(&alunos, &cursos, opcao);
+        menu_opcao(&cursos, opcao);
         espera_enter();
     } while (opcao != 8);
 }
 
 int main()
 {
-    Lista *alunos = lista_cria_vazia();
     Arv *cursos = arv_cria_vazia();
-
-    menu(alunos, cursos);
+    menu(cursos);
+    
 }
