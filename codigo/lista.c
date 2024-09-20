@@ -179,10 +179,8 @@ void imprimir(Lista *alunos, char *nome_curso, char *centro_curso)
 void liberar_lista(Lista *l)
 {
     Lista *p = l;
-    Lista *prox;
     while (p != NULL)
     {
-        prox = p->prox;
         free(p);
         p = p->prox;
     }
